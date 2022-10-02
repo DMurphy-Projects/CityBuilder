@@ -1,0 +1,3 @@
+[submodule "WaveFunctionCollapse"]
+	path = WaveFunctionCollapse
+	url = https://github.com/DMurphy-Projects/WaveFunctionCollapse
