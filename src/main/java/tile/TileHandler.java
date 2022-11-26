@@ -3,20 +3,29 @@ package tile;
 import model.CityGrid2D;
 import model.CityTile;
 
-import java.awt.*;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class TileHandler {
 
     HashMap<String, CityTile> tilesIndex = new HashMap<>(), tilesRotation = new HashMap<>();
+    ArrayList<CityTile> tilesList = new ArrayList<>();
     int sides;
 
     public TileHandler(int s)
     {
         sides = s;
+    }
+
+    public CityTile getNext(CityTile tile)
+    {
+        int index = tilesList.lastIndexOf(tile);
+        return tilesList.get((index + 1) % tilesList.size());
+    }
+
+    public CityTile getPrevious(CityTile tile)
+    {
+        int index = tilesList.indexOf(tile);
+        return tilesList.get(Math.floorMod(index - 1, tilesList.size()));
     }
 
     public CityTile lookupIndex(String id)
@@ -63,12 +72,16 @@ public class TileHandler {
         }
 
         tilesIndex.put(id + index, tile);
+
+        tilesList.add(tile);
     }
 
     public void addBoth(CityTile tile, int index, int rot)
     {
         addIndex(tile, index);
         addRotation(tile, rot);
+
+        tilesList.add(tile);
     }
     public void addIndex(CityTile tile, int index)
     {

@@ -1,0 +1,424 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<tiles>
+  <meta sides="4"/>
+  <tile id="R">
+    <rotations>
+      <rotation id="R2">R0</rotation>
+      <rotation id="R3">R1</rotation>
+      <rotation id="R0">R0</rotation>
+      <rotation id="R1">R1</rotation>
+    </rotations>
+    <subTiles>
+      <subTile id="R0">
+        <sides>
+          <side index="0">
+            <valid id="J2"/>
+            <valid id="R0"/>
+            <valid id="T2"/>
+            <valid id="T3"/>
+          </side>
+          <side index="1">
+            <valid id="J0"/>
+            <valid id="I0"/>
+            <valid id="J1"/>
+            <valid id="J2"/>
+            <valid id="T1"/>
+            <valid id="R0"/>
+            <valid id="T2"/>
+          </side>
+          <side index="2">
+            <valid id="J0"/>
+            <valid id="T0"/>
+            <valid id="T1"/>
+            <valid id="R0"/>
+          </side>
+          <side index="3">
+            <valid id="J0"/>
+            <valid id="I0"/>
+            <valid id="J2"/>
+            <valid id="J3"/>
+            <valid id="T0"/>
+            <valid id="R0"/>
+            <valid id="T3"/>
+          </side>
+        </sides>
+      </subTile>
+      <subTile id="R1">
+        <sides>
+          <side index="0">
+            <valid id="J0"/>
+            <valid id="I0"/>
+            <valid id="J1"/>
+            <valid id="J3"/>
+            <valid id="T0"/>
+            <valid id="T1"/>
+            <valid id="R1"/>
+          </side>
+          <side index="1">
+            <valid id="T0"/>
+            <valid id="R1"/>
+            <valid id="T3"/>
+          </side>
+          <side index="2">
+            <valid id="I0"/>
+            <valid id="J1"/>
+            <valid id="J2"/>
+            <valid id="J3"/>
+            <valid id="T0"/>
+            <valid id="T2"/>
+            <valid id="R1"/>
+            <valid id="T3"/>
+          </side>
+          <side index="3">
+            <valid id="J1"/>
+            <valid id="T1"/>
+            <valid id="T2"/>
+            <valid id="R1"/>
+          </side>
+        </sides>
+      </subTile>
+    </subTiles>
+  </tile>
+  <tile id="T">
+    <rotations>
+      <rotation id="T0">T0</rotation>
+      <rotation id="T1">T1</rotation>
+      <rotation id="T2">T2</rotation>
+      <rotation id="T3">T3</rotation>
+    </rotations>
+    <subTiles>
+      <subTile id="T0">
+        <sides>
+          <side index="0">
+            <valid id="J2"/>
+            <valid id="R0"/>
+            <valid id="T2"/>
+            <valid id="T3"/>
+            <valid id="R1"/>
+          </side>
+          <side index="1">
+            <valid id="J0"/>
+            <valid id="I0"/>
+            <valid id="J1"/>
+            <valid id="J2"/>
+            <valid id="T1"/>
+            <valid id="T2"/>
+            <valid id="R0"/>
+          </side>
+          <side index="2">
+            <valid id="I0"/>
+            <valid id="J1"/>
+            <valid id="J2"/>
+            <valid id="J3"/>
+            <valid id="T3"/>
+            <valid id="R1"/>
+          </side>
+          <side index="3">
+            <valid id="J1"/>
+            <valid id="T1"/>
+            <valid id="T2"/>
+            <valid id="R1"/>
+          </side>
+        </sides>
+      </subTile>
+      <subTile id="T1">
+        <sides>
+          <side index="0">
+            <valid id="J2"/>
+            <valid id="R0"/>
+            <valid id="T2"/>
+            <valid id="T3"/>
+          </side>
+          <side index="1">
+            <valid id="T0"/>
+            <valid id="R1"/>
+            <valid id="T3"/>
+          </side>
+          <side index="2">
+            <valid id="I0"/>
+            <valid id="J1"/>
+            <valid id="J2"/>
+            <valid id="J3"/>
+            <valid id="T2"/>
+            <valid id="T3"/>
+            <valid id="R1"/>
+          </side>
+          <side index="3">
+            <valid id="J0"/>
+            <valid id="I0"/>
+            <valid id="J2"/>
+            <valid id="J3"/>
+            <valid id="T0"/>
+            <valid id="R0"/>
+            <valid id="T3"/>
+          </side>
+        </sides>
+      </subTile>
+      <subTile id="T2">
+        <sides>
+          <side index="0">
+            <valid id="J0"/>
+            <valid id="I0"/>
+            <valid id="J1"/>
+            <valid id="J3"/>
+            <valid id="T1"/>
+            <valid id="R1"/>
+          </side>
+          <side index="1">
+            <valid id="T0"/>
+            <valid id="R1"/>
+            <valid id="T3"/>
+          </side>
+          <side index="2">
+            <valid id="J0"/>
+            <valid id="J1"/>
+            <valid id="T0"/>
+            <valid id="T1"/>
+            <valid id="R0"/>
+          </side>
+          <side index="3">
+            <valid id="J0"/>
+            <valid id="I0"/>
+            <valid id="J2"/>
+            <valid id="J3"/>
+            <valid id="T0"/>
+            <valid id="R0"/>
+            <valid id="T3"/>
+          </side>
+        </sides>
+      </subTile>
+      <subTile id="T3">
+        <sides>
+          <side index="0">
+            <valid id="J0"/>
+            <valid id="I0"/>
+            <valid id="J1"/>
+            <valid id="J3"/>
+            <valid id="T0"/>
+            <valid id="T1"/>
+            <valid id="R1"/>
+          </side>
+          <side index="1">
+            <valid id="J0"/>
+            <valid id="I0"/>
+            <valid id="J1"/>
+            <valid id="J2"/>
+            <valid id="T1"/>
+            <valid id="T2"/>
+            <valid id="R0"/>
+          </side>
+          <side index="2">
+            <valid id="J0"/>
+            <valid id="T0"/>
+            <valid id="T1"/>
+            <valid id="R0"/>
+          </side>
+          <side index="3">
+            <valid id="J1"/>
+            <valid id="T1"/>
+            <valid id="T2"/>
+            <valid id="R1"/>
+          </side>
+        </sides>
+      </subTile>
+    </subTiles>
+  </tile>
+  <tile id="I">
+    <rotations>
+      <rotation id="I0">I0</rotation>
+      <rotation id="I1">I0</rotation>
+      <rotation id="I2">I0</rotation>
+      <rotation id="I3">I0</rotation>
+    </rotations>
+    <subTiles>
+      <subTile id="I0">
+        <sides>
+          <side index="0">
+            <valid id="J0"/>
+            <valid id="I0"/>
+            <valid id="J1"/>
+            <valid id="J3"/>
+            <valid id="T0"/>
+            <valid id="T1"/>
+            <valid id="R1"/>
+          </side>
+          <side index="1">
+            <valid id="J0"/>
+            <valid id="I0"/>
+            <valid id="J1"/>
+            <valid id="J2"/>
+            <valid id="T1"/>
+            <valid id="R0"/>
+            <valid id="T2"/>
+          </side>
+          <side index="2">
+            <valid id="I0"/>
+            <valid id="J1"/>
+            <valid id="J2"/>
+            <valid id="J3"/>
+            <valid id="T2"/>
+            <valid id="R1"/>
+            <valid id="T3"/>
+          </side>
+          <side index="3">
+            <valid id="J0"/>
+            <valid id="I0"/>
+            <valid id="J2"/>
+            <valid id="J3"/>
+            <valid id="T0"/>
+            <valid id="R0"/>
+            <valid id="T3"/>
+          </side>
+        </sides>
+      </subTile>
+    </subTiles>
+  </tile>
+  <tile id="J">
+    <rotations>
+      <rotation id="J0">J0</rotation>
+      <rotation id="J1">J1</rotation>
+      <rotation id="J2">J2</rotation>
+      <rotation id="J3">J3</rotation>
+    </rotations>
+    <subTiles>
+      <subTile id="J0">
+        <sides>
+          <side index="0">
+            <valid id="J2"/>
+            <valid id="R0"/>
+            <valid id="T2"/>
+            <valid id="T3"/>
+          </side>
+          <side index="1">
+            <valid id="J0"/>
+            <valid id="J1"/>
+            <valid id="I0"/>
+            <valid id="J2"/>
+            <valid id="T1"/>
+            <valid id="R0"/>
+            <valid id="T2"/>
+          </side>
+          <side index="2">
+            <valid id="I0"/>
+            <valid id="J1"/>
+            <valid id="J2"/>
+            <valid id="J3"/>
+            <valid id="T2"/>
+            <valid id="R1"/>
+            <valid id="T3"/>
+          </side>
+          <side index="3">
+            <valid id="J0"/>
+            <valid id="I0"/>
+            <valid id="J2"/>
+            <valid id="T0"/>
+            <valid id="R0"/>
+            <valid id="T3"/>
+          </side>
+        </sides>
+      </subTile>
+      <subTile id="J1">
+        <sides>
+          <side index="0">
+            <valid id="J0"/>
+            <valid id="J1"/>
+            <valid id="I0"/>
+            <valid id="J3"/>
+            <valid id="T0"/>
+            <valid id="T1"/>
+            <valid id="T2"/>
+            <valid id="R1"/>
+          </side>
+          <side index="1">
+            <valid id="J3"/>
+            <valid id="T0"/>
+            <valid id="R1"/>
+            <valid id="T3"/>
+          </side>
+          <side index="2">
+            <valid id="J1"/>
+            <valid id="I0"/>
+            <valid id="J2"/>
+            <valid id="J3"/>
+            <valid id="T2"/>
+            <valid id="R1"/>
+            <valid id="T3"/>
+          </side>
+          <side index="3">
+            <valid id="J0"/>
+            <valid id="I0"/>
+            <valid id="T0"/>
+            <valid id="R0"/>
+            <valid id="T3"/>
+          </side>
+        </sides>
+      </subTile>
+      <subTile id="J2">
+        <sides>
+          <side index="0">
+            <valid id="J0"/>
+            <valid id="J1"/>
+            <valid id="I0"/>
+            <valid id="T0"/>
+            <valid id="T1"/>
+            <valid id="R1"/>
+          </side>
+          <side index="1">
+            <valid id="J0"/>
+            <valid id="I0"/>
+            <valid id="J2"/>
+            <valid id="T1"/>
+            <valid id="R0"/>
+            <valid id="T2"/>
+          </side>
+          <side index="2">
+            <valid id="J0"/>
+            <valid id="T0"/>
+            <valid id="T1"/>
+            <valid id="R0"/>
+          </side>
+          <side index="3">
+            <valid id="J0"/>
+            <valid id="I0"/>
+            <valid id="J2"/>
+            <valid id="J3"/>
+            <valid id="T0"/>
+            <valid id="R0"/>
+            <valid id="T3"/>
+          </side>
+        </sides>
+      </subTile>
+      <subTile id="J3">
+        <sides>
+          <side index="0">
+            <valid id="J0"/>
+            <valid id="J1"/>
+            <valid id="I0"/>
+            <valid id="J3"/>
+            <valid id="T0"/>
+            <valid id="T1"/>
+            <valid id="R1"/>
+          </side>
+          <side index="1">
+            <valid id="I0"/>
+            <valid id="J2"/>
+            <valid id="T1"/>
+            <valid id="R0"/>
+            <valid id="T2"/>
+          </side>
+          <side index="2">
+            <valid id="I0"/>
+            <valid id="J1"/>
+            <valid id="J3"/>
+            <valid id="T2"/>
+            <valid id="R1"/>
+            <valid id="T3"/>
+          </side>
+          <side index="3">
+            <valid id="J1"/>
+          </side>
+        </sides>
+      </subTile>
+    </subTiles>
+  </tile>
+</tiles>

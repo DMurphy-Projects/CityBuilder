@@ -1,14 +1,14 @@
 package view;
 
-import model.CityGrid;
 import model.CityGrid2D;
 import model.CityTile;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseEvent;
 import java.util.HashMap;
 
-public class FragmentPanel extends JPanel{
+public class FragmentPanel extends JPanel {
     HashMap<String, Fragment> fragments = new HashMap<>();
     Fragment nullFragment = new Fragment() {
         @Override
@@ -18,7 +18,7 @@ public class FragmentPanel extends JPanel{
     };
 
     CityGrid2D grid;
-    int gridW, gridH;
+    int gridW, gridH, cellW, cellH, selectedX, selectedY;
 
     public FragmentPanel(CityGrid2D g)
     {
@@ -26,6 +26,17 @@ public class FragmentPanel extends JPanel{
 
         gridW = g.getWidth();
         gridH = g.getHeight();
+
+        selectedX = 0;
+        selectedY = 0;
+    }
+
+    @Override
+    public void setPreferredSize(Dimension preferredSize) {
+        super.setPreferredSize(preferredSize);
+
+        cellW = preferredSize.width / gridW;
+        cellH = preferredSize.height / gridH;
     }
 
     public void addFragment(String id, Fragment f)
@@ -38,9 +49,6 @@ public class FragmentPanel extends JPanel{
 
         g.setColor(Color.white);
         g.fillRect(0, 0, getWidth(), getHeight());
-
-        int cellW = getWidth() / gridW;
-        int cellH = getHeight() / gridH;
 
         for (int i=0;i<grid.getLength();i++)
         {
@@ -65,5 +73,25 @@ public class FragmentPanel extends JPanel{
             g.setColor(Color.black);
             g.drawRect(x * cellW, y * cellH, cellW, cellH);
         }
+
+        g.setColor(Color.GREEN);
+        g.drawRect(selectedX * cellW, selectedY * cellH, cellW, cellH);
+    }
+
+
+    public void updateSelected(MouseEvent e)
+    {
+        selectedX = e.getX() / cellW;
+        selectedY = e.getY() / cellH;
+        repaint();
+    }
+
+    public int getSelectedX()
+    {
+        return selectedX;
+    }
+
+    public int getSelectedY() {
+        return selectedY;
     }
 }

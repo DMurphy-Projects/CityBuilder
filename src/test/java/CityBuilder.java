@@ -1,5 +1,6 @@
 import cityExamples.*;
 import io.TileXmlReader;
+import io.TileXmlWriter;
 import model.*;
 import org.xml.sax.SAXException;
 import tile.TileHandler;
@@ -8,7 +9,12 @@ import view.FragmentPanel;
 
 import javax.swing.*;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerException;
 import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
 import java.io.IOException;
 import java.util.*;
 
@@ -16,7 +22,8 @@ public class CityBuilder {
 
     public static void main(String[] args) throws IOException, SAXException, ParserConfigurationException {
 
-        TileHandler tileHandler = TileXmlReader.readFromFile("src/main/resources/cityTiles.xml");
+        String fileName = "src/main/resources/cityTiles2.xml";
+        TileHandler tileHandler = TileXmlReader.readFromFile(fileName);
 
         int w = 20, h = 20;
         CityGrid2D cityGrid = new CityGrid2D(tileHandler, w, h);
@@ -85,7 +92,6 @@ public class CityBuilder {
                 }
             }
         }
-
 
         JFrame frame = new JFrame("");
         FragmentPanel panel = new FragmentPanel(cityGrid);
@@ -178,6 +184,67 @@ public class CityBuilder {
             }
         });
 
+        panel.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                switch (e.getButton())
+                {
+                    case 1:
+                        panel.updateSelected(e);
+                        break;
+                    case 3:
+                        tileHandler.addValidFromGrid(cityGrid);
+                        try {
+                            TileXmlWriter.writeToFile(fileName, tileHandler);
+                            System.out.println("File Saved");
+                        } catch (ParserConfigurationException e1) {
+                            e1.printStackTrace();
+                        } catch (IOException e1) {
+                            e1.printStackTrace();
+                        } catch (TransformerException e1) {
+                            e1.printStackTrace();
+                        }
+                        break;
+                }
+
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+            }
+        });
+
+        panel.addMouseWheelListener(new MouseWheelListener() {
+            @Override
+            public void mouseWheelMoved(MouseWheelEvent e) {
+                int x = panel.getSelectedX(), y = panel.getSelectedY();
+                if (e.getWheelRotation() > 0)
+                {
+                    cityGrid.setPosition(x, y, tileHandler.getNext(cityGrid.getPosition(x, y)));
+                }
+                else
+                {
+                    cityGrid.setPosition(x, y, tileHandler.getPrevious(cityGrid.getPosition(x, y)));
+                }
+                panel.repaint();
+            }
+        });
 
         frame.pack();
         frame.setLocationRelativeTo(null);

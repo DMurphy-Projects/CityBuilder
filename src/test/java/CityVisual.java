@@ -9,6 +9,10 @@ import view.FragmentPanel;
 import javax.swing.*;
 import javax.xml.parsers.ParserConfigurationException;
 import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
 import java.io.IOException;
 
 public class CityVisual {
@@ -20,7 +24,8 @@ public class CityVisual {
         CityGrid2D[] grids = TurnExample.createGrids(tileHandler);
 
         JFrame frame = new JFrame("");
-        FragmentPanel panel = new FragmentPanel(grids[(4 * 1) + 3]);
+        CityGrid2D cityGrid = grids[(4 * 1) + 3];
+        FragmentPanel panel = new FragmentPanel(cityGrid);
         panel.setPreferredSize(new Dimension(500, 500));
         frame.add(panel);
 
@@ -110,6 +115,53 @@ public class CityVisual {
             }
         });
 
+        panel.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                switch (e.getButton())
+                {
+                    case 1: panel.updateSelected(e);
+                    case 3: break;
+                }
+
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+            }
+        });
+
+        panel.addMouseWheelListener(new MouseWheelListener() {
+            @Override
+            public void mouseWheelMoved(MouseWheelEvent e) {
+                int x = panel.getSelectedX(), y = panel.getSelectedY();
+                if (e.getWheelRotation() > 0)
+                {
+                    cityGrid.setPosition(x, y, tileHandler.getNext(cityGrid.getPosition(x, y)));
+                }
+                else
+                {
+                    cityGrid.setPosition(x, y, tileHandler.getPrevious(cityGrid.getPosition(x, y)));
+                }
+                panel.repaint();
+            }
+        });
 
         frame.pack();
         frame.setLocationRelativeTo(null);
