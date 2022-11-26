@@ -28,9 +28,10 @@ public class CityGrid {
         return grid[pos];
     }
 
-    public CityGrid(CityTile[] grid)
+    public CityGrid(TileHandler handler, CityTile[] grid)
     {
         this.grid = grid;
+        this.handler = handler;
     }
 
     public int getLength()

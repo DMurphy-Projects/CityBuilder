@@ -13,9 +13,9 @@ public class CityGrid2D extends CityGrid {
         height = h;
     }
 
-    public CityGrid2D(CityTile[] grid, int w, int h)
+    public CityGrid2D(TileHandler handler, CityTile[] grid, int w, int h)
     {
-        super(grid);
+        super(handler, grid);
 
         width = w;
         height = h;
@@ -48,7 +48,7 @@ public class CityGrid2D extends CityGrid {
 
         rotatePieces(rotated, 1);
 
-        return new CityGrid2D(rotated, height, width);
+        return new CityGrid2D(handler, rotated, height, width);
     }
 
     public CityGrid2D rotate180()
@@ -63,7 +63,7 @@ public class CityGrid2D extends CityGrid {
 
         rotatePieces(rotated, 2);
 
-        return new CityGrid2D(rotated, width, height);
+        return new CityGrid2D(handler, rotated, width, height);
     }
 
     public CityGrid2D rotate270()
@@ -78,7 +78,7 @@ public class CityGrid2D extends CityGrid {
 
         rotatePieces(rotated, 3);
 
-        return new CityGrid2D(rotated, height, width);
+        return new CityGrid2D(handler, rotated, height, width);
     }
 
     public void setPosition(int x, int y, String id, int rot)
