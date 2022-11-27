@@ -184,6 +184,20 @@ public class CityBuilder {
             }
         });
 
+        panel.addFragment(CityPieces.BLANK + CityPieces.BLANK_ROT[0], new Fragment() {
+            @Override
+            public void paint(Graphics g, int x, int y, int w, int h) {
+
+            }
+        });
+
+        panel.addFragment(CityPieces.BUILDING + CityPieces.BUILDING_ROT[0], new Fragment() {
+            @Override
+            public void paint(Graphics g, int x, int y, int w, int h) {
+                g.fillRect(x + (w / 4), y + (h / 4), w / 2, h / 2);
+            }
+        });
+
         panel.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
