@@ -1,3 +1,6 @@
 [submodule "WaveFunctionCollapse"]
 	path = WaveFunctionCollapse
 	url = https://github.com/DMurphy-Projects/WaveFunctionCollapse
+[submodule "NBT"]
+	path = NBT
+	url = https://github.com/DMurphy-Projects/NBT
