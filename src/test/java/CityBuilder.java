@@ -1,4 +1,11 @@
+import IO.SchematicFileHandler;
+import IO.SchematicReader;
+import Model.SchematicArea;
 import cityExamples.*;
+import dev.dewy.nbt.Nbt;
+import dev.dewy.nbt.io.CompressionType;
+import dev.dewy.nbt.tags.collection.CompoundTag;
+import dev.dewy.nbt.tags.collection.ListTag;
 import io.TileXmlReader;
 import io.TileXmlWriter;
 import model.*;
@@ -6,6 +13,7 @@ import org.xml.sax.SAXException;
 import tile.TileHandler;
 import view.Fragment;
 import view.FragmentPanel;
+import view.examples.CityFragmentPanel;
 
 import javax.swing.*;
 import javax.xml.parsers.ParserConfigurationException;
@@ -15,14 +23,16 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
+import java.io.File;
 import java.io.IOException;
 import java.util.*;
+import java.util.List;
 
 public class CityBuilder {
 
     public static void main(String[] args) throws IOException, SAXException, ParserConfigurationException {
 
-        String fileName = "src/main/resources/cityTiles2.xml";
+        String fileName = "src/main/resources/cityTiles.xml";
         TileHandler tileHandler = TileXmlReader.readFromFile(fileName);
 
         int w = 20, h = 20;
@@ -94,109 +104,8 @@ public class CityBuilder {
         }
 
         JFrame frame = new JFrame("");
-        FragmentPanel panel = new FragmentPanel(cityGrid);
-        panel.setPreferredSize(new Dimension(500, 500));
+        FragmentPanel panel = CityFragmentPanel.create(cityGrid);
         frame.add(panel);
-
-        panel.addFragment(CityPieces.ROAD + CityPieces.ROAD_ROT[0], new Fragment() {
-            @Override
-            public void paint(Graphics g, int x, int y, int w, int h) {
-                g.fillRect(x, y + (h / 4), w, h / 2);
-            }
-        });
-
-        panel.addFragment(CityPieces.ROAD + CityPieces.ROAD_ROT[1], new Fragment() {
-            @Override
-            public void paint(Graphics g, int x, int y, int w, int h) {
-                g.fillRect(x + (w / 4), y, w / 2, h);
-            }
-        });
-
-        panel.addFragment(CityPieces.INTERSECTION + CityPieces.INTERSECTION_ROT[0], new Fragment() {
-            @Override
-            public void paint(Graphics g, int x, int y, int w, int h) {
-                g.fillRect(x, y + (h / 4), w, h / 2);
-                g.fillRect(x + (w / 4), y, w / 2, h);
-            }
-        });
-
-        panel.addFragment(CityPieces.TURN + CityPieces.TURN_ROT[0], new Fragment() {
-            @Override
-            public void paint(Graphics g, int x, int y, int w, int h) {
-                g.fillRect(x + (w / 4), y + (h / 4), (3 * w) / 4, h / 2);
-                g.fillRect(x + (w / 4), y + (h / 4), w / 2, (3 * h) / 4);
-            }
-        });
-
-        panel.addFragment(CityPieces.TURN + CityPieces.TURN_ROT[1], new Fragment() {
-            @Override
-            public void paint(Graphics g, int x, int y, int w, int h) {
-                g.fillRect(x, y + (h / 4), (3 * w) / 4, h / 2);
-                g.fillRect(x + (w / 4), y + (h / 4), w / 2, (3 * h) / 4);
-            }
-        });
-
-        panel.addFragment(CityPieces.TURN + CityPieces.TURN_ROT[2], new Fragment() {
-            @Override
-            public void paint(Graphics g, int x, int y, int w, int h) {
-                g.fillRect(x, y + (h / 4), (3 * w) / 4, h / 2);
-                g.fillRect(x + (w / 4), y, w / 2, (3 * h) / 4);
-            }
-        });
-
-        panel.addFragment(CityPieces.TURN + CityPieces.TURN_ROT[3], new Fragment() {
-            @Override
-            public void paint(Graphics g, int x, int y, int w, int h) {
-                g.fillRect(x + (w / 4), y + (h / 4), (3 * w) / 4, h / 2);
-                g.fillRect(x + (w / 4), y, w / 2, (3 * h) / 4);
-            }
-        });
-
-        panel.addFragment(CityPieces.JUNCTION + CityPieces.JUNCTION_ROT[0], new Fragment() {
-            @Override
-            public void paint(Graphics g, int x, int y, int w, int h) {
-                g.fillRect(x, y + (h / 4), w, h / 2);
-                g.fillRect(x + (w / 4), y + (h / 2), w / 2, h / 2);
-            }
-        });
-
-        panel.addFragment(CityPieces.JUNCTION + CityPieces.JUNCTION_ROT[1], new Fragment() {
-            @Override
-            public void paint(Graphics g, int x, int y, int w, int h) {
-                g.fillRect(x, y + (h / 4), (3 * w) / 4, h / 2);
-                g.fillRect(x + (w / 4), y, w / 2, h);
-            }
-        });
-
-        panel.addFragment(CityPieces.JUNCTION + CityPieces.JUNCTION_ROT[2], new Fragment() {
-            @Override
-            public void paint(Graphics g, int x, int y, int w, int h) {
-                g.fillRect(x, y + (h / 4), w, h / 2);
-                g.fillRect(x + (w / 4), y, w / 2, (3 * h) / 4);
-            }
-        });
-
-        panel.addFragment(CityPieces.JUNCTION + CityPieces.JUNCTION_ROT[3], new Fragment() {
-            @Override
-            public void paint(Graphics g, int x, int y, int w, int h) {
-                g.fillRect(x + (w / 4), y + (h / 4), (3 * w) / 4, h / 2);
-                g.fillRect(x + (w / 4), y, w / 2, h);
-            }
-        });
-
-        panel.addFragment(CityPieces.BLANK + CityPieces.BLANK_ROT[0], new Fragment() {
-            @Override
-            public void paint(Graphics g, int x, int y, int w, int h) {
-
-            }
-        });
-
-        panel.addFragment(CityPieces.BUILDING + CityPieces.BUILDING_ROT[0], new Fragment() {
-            @Override
-            public void paint(Graphics g, int x, int y, int w, int h) {
-                g.fillRect(x + (w / 4), y + (h / 4), w / 2, h / 2);
-            }
-        });
 
         panel.addMouseListener(new MouseListener() {
             @Override
@@ -264,5 +173,74 @@ public class CityBuilder {
         frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
+
+        String inFolder = "C:\\Users\\Dean\\AppData\\Roaming\\.minecraft\\installations\\1.18.1\\schematics\\City Generator\\City Tiles\\";
+        String outFolder = "C:\\Users\\Dean\\AppData\\Roaming\\.minecraft\\installations\\1.18.1\\schematics\\City Generator\\City Examples\\";
+
+        Collection<CityTile> tiles = tileHandler.lookupRotationAll();
+        HashMap<CityTile, SchematicArea> tileMap = new HashMap<>();
+
+        for (CityTile t: tiles)
+        {
+            tileMap.put(tileHandler.lookupRotation(t.getId()), createFromFile(String.format("%s%s.litematic", inFolder, t.getId())));
+        }
+
+        int sSize = 9, sHeight = 10;
+        SchematicArea schematicArea = new SchematicArea(cityGrid.getWidth() * sSize, sHeight, cityGrid.getHeight() * sSize);
+        schematicArea.addPalette("minecraft:air");
+
+        for (int i=0;i<cityGrid.getWidth();i++)
+        for (int j=0;j<cityGrid.getHeight();j++)
+        {
+            CityTile tile = cityGrid.getPosition(i, j);
+            SchematicArea copyArea = tileMap.get(tile);
+            schematicArea.addArea(copyArea,
+                    0, 0, 0,
+                    sSize, copyArea.getHeight(), sSize,
+                    i * sSize, 0, j * sSize);
+        }
+
+        write(String.format("%s%s", outFolder, "generationTest.litematic"), new Nbt(), schematicArea);
+    }
+
+    public static SchematicArea createFromFile(String file) throws IOException {
+        Nbt nbt = new Nbt();
+
+        CompoundTag root = nbt.fromFile(new File(file));
+
+        SchematicFileHandler fileHelper = new SchematicFileHandler(root);
+        SchematicArea area = SchematicReader.read(fileHelper);
+
+        return area;
+    }
+
+    public static void write(String name, Nbt nbt, SchematicArea area) throws IOException {
+        SchematicFileHandler fileHelper = new SchematicFileHandler();
+        fileHelper.createRoot();
+
+        fileHelper.modifyDataVersion(2865);
+        fileHelper.modifyVersion(6);
+        //metadata
+        fileHelper.modifyEnclosingSize(area.getWidth(), area.getHeight(), area.getDepth());
+        fileHelper.modifyAuthor("Dean");
+        fileHelper.modifyDescription("Test File");
+        fileHelper.modifyName("Test Area");
+        fileHelper.modifyRegionCount(1);
+        fileHelper.modifyTimeCreated(System.currentTimeMillis());
+        fileHelper.modifyTimeModified(System.currentTimeMillis());
+        fileHelper.modifyTotalBlocks(area.getWidth() * area.getHeight() * area.getDepth());
+        fileHelper.modifyTotalVolume(area.getWidth() * area.getHeight() * area.getDepth());
+
+        //region
+        fileHelper.modifyPosition(0, 0, 0);
+        fileHelper.modifySize(area.getWidth(), area.getHeight(), area.getDepth());
+        fileHelper.modifyBlockStatePalette(area.createBlockStatePalette());
+        fileHelper.modifyEntities(new ListTag<CompoundTag>());
+        fileHelper.modifyPendingBlockTicks(new ListTag<CompoundTag>());
+        fileHelper.modifyPendingFluidTickss(new ListTag<CompoundTag>());
+        fileHelper.modifyTileEntities(new ListTag<CompoundTag>());
+        fileHelper.modifyBlockStates(area.createLongArray());
+
+        nbt.toFile(fileHelper.root, new File(name), CompressionType.GZIP);
     }
 }
