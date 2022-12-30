@@ -194,6 +194,8 @@ public class CityBuilder {
         {
             CityTile tile = cityGrid.getPosition(i, j);
             SchematicArea copyArea = tileMap.get(tile);
+            if (copyArea == null) continue;
+
             schematicArea.addArea(copyArea,
                     0, 0, 0,
                     sSize, copyArea.getHeight(), sSize,
