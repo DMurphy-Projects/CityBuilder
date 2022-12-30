@@ -35,6 +35,7 @@ public class TileXmlReader {
         {
             Element tile = (Element) tileList.item(i);
             String tileBaseId = tile.getAttributes().getNamedItem("id").getNodeValue();
+            Integer weight = Integer.parseInt(tile.getAttributes().getNamedItem("weight").getNodeValue());
 
             NodeList subTileList = tile.getElementsByTagName("subTile");
             for (int j=0;j<subTileList.getLength();j++)
@@ -43,7 +44,7 @@ public class TileXmlReader {
 
                 String id = subTile.getAttribute("id");
                 int r = Integer.parseInt(id.split(tileBaseId)[1]);
-                CityTile subTileOb = new CityTile(tileBaseId, r, tileHandler.getSides());
+                CityTile subTileOb = new CityTile(tileBaseId, r, tileHandler.getSides(), weight);
 
                 NodeList sideList = subTile.getElementsByTagName("side");
                 for (int k=0;k<sideList.getLength();k++)

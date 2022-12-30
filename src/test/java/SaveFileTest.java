@@ -11,10 +11,10 @@ public class SaveFileTest {
     public static void main(String[] args) {
         TileHandler tileHandler = new TileHandler(4);
 
-        tileHandler.addAll(CityPieces.ROAD, CityPieces.ROAD_ROT);
-        tileHandler.addAll(CityPieces.INTERSECTION, CityPieces.INTERSECTION_ROT);
-        tileHandler.addAll(CityPieces.TURN, CityPieces.TURN_ROT);
-        tileHandler.addAll(CityPieces.JUNCTION, CityPieces.JUNCTION_ROT);
+        tileHandler.addAll(CityPieces.ROAD, CityPieces.ROAD_ROT,1);
+        tileHandler.addAll(CityPieces.INTERSECTION, CityPieces.INTERSECTION_ROT, 1);
+        tileHandler.addAll(CityPieces.TURN, CityPieces.TURN_ROT, 1);
+        tileHandler.addAll(CityPieces.JUNCTION, CityPieces.JUNCTION_ROT, 1);
 
         tileHandler.addAllValidFromGrid(RoadExample.createGrids(tileHandler));
         tileHandler.addAllValidFromGrid(IntersectionExample.createGrids(tileHandler));

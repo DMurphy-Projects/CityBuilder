@@ -41,7 +41,7 @@ public class CityBuilder {
         //constraints
         final Constraint<CityTilePosition, CityGrid2D> tileConstraints = new Constraint<CityTilePosition, CityGrid2D>(cityGrid) {
             @Override
-            protected boolean allowed(State<CityTilePosition> state) {
+            protected void updateProbability(State<CityTilePosition> state) {
                 int pos = state.getModelState().getPosition();
                 String id = state.getModelState().getTile().getId();
 
@@ -54,10 +54,9 @@ public class CityBuilder {
                     HashSet valid = tileHandler.lookupIndex(id).getValid(i);
                     if (!valid.contains(surrounding[i].getId()))
                     {
-                        return false;
+                        state.updateWeight(0);
                     }
                 }
-                return true;
             }
         };
 
@@ -71,7 +70,7 @@ public class CityBuilder {
 
             for (CityTile t: tileHandler.lookupIndexAll())
             {
-                sp.addState(new State<CityTilePosition>(new CityTilePosition(t, i)));
+                sp.addState(new State<CityTilePosition>(new CityTilePosition(t, i), t.getWeight()));
             }
 
             superPositionGrid.add(sp);
@@ -117,6 +116,9 @@ public class CityBuilder {
                         break;
                     case 3:
                         tileHandler.addValidFromGrid(cityGrid);
+                        tileHandler.addValidFromGrid(cityGrid.rotate90());
+                        tileHandler.addValidFromGrid(cityGrid.rotate180());
+                        tileHandler.addValidFromGrid(cityGrid.rotate270());
                         try {
                             TileXmlWriter.writeToFile(fileName, tileHandler);
                             System.out.println("File Saved");

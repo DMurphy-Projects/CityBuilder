@@ -25,6 +25,9 @@ public class CityGrid2D extends CityGrid {
     {
         for (int i=0;i<grid.length;i++)
         {
+            //empty grids don't need rotated
+            if (grid[i] == null) continue;
+
             try {
                 CityTile rotated = handler.lookupIndex(grid[i].id + (grid[i].rotation + rot) % 4);
                 grid[i] = rotated;

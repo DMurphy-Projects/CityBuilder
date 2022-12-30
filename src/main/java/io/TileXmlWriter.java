@@ -55,6 +55,7 @@ public class TileXmlWriter {
         {
             Element tile = doc.createElement("tile");
             tile.setAttribute("id", id);
+            tile.setAttribute("weight", tileHandler.lookupIndex(id+"0").getWeight()+"");
             tiles.appendChild(tile);
             tileElementMap.put(id, tile);
 

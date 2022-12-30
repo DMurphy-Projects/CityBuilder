@@ -51,15 +51,15 @@ public class TileHandler {
         return tilesRotation.values();
     }
 
-    public void addAll(String id, int[] rotation)
+    public void addAll(String id, int[] rotation, int weight)
     {
         for (int i=0;i<rotation.length;i++)
         {
-            add(id, i, rotation[i]);
+            add(id, i, rotation[i], weight);
         }
     }
 
-    public void add(String id, int index, int rot)
+    public void add(String id, int index, int rot, int weight)
     {
         CityTile tile;
         if (tilesRotation.containsKey(id + rot)) {
@@ -67,7 +67,7 @@ public class TileHandler {
         }
         else
         {
-            tile = new CityTile(id, rot, sides);
+            tile = new CityTile(id, rot, sides, weight);
             tilesRotation.put(id + rot, tile);
         }
 

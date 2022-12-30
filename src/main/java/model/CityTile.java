@@ -6,14 +6,16 @@ public class CityTile {
 
     String id;
     int rotation;
+    int weight;
 
     //[direction][list of valid id]
     HashSet<String>[] valid;
 
-    public CityTile(String id, int r, int sides)
+    public CityTile(String id, int r, int sides, int w)
     {
         this.id = id;
         this.rotation = r;
+        this.weight = w;
 
         this.valid = new HashSet[sides];
         for (int i=0;i<valid.length;i++)
@@ -29,6 +31,10 @@ public class CityTile {
 
     public int getRotation() {
         return rotation;
+    }
+
+    public int getWeight() {
+        return weight;
     }
 
     public HashSet<String>[] getValid() {
