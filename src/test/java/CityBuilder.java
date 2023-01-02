@@ -62,6 +62,10 @@ public class CityBuilder {
 
         ArrayList<SuperPosition<CityTile, CityGrid>> superPositionGrid = new ArrayList<SuperPosition<CityTile, CityGrid>>();
 
+        int middle = (cityGrid.getWidth()/2) + (cityGrid.getHeight()/2) * cityGrid.getWidth(), mX = middle % cityGrid.getWidth(), mY = middle / cityGrid.getWidth();
+        double maxDist = Math.pow(cityGrid.getWidth() - mX, 2) + Math.pow(cityGrid.getHeight() - mY, 2);
+        maxDist /= 2;
+
         //setup super positions
         for (int i=0;i<w*h;i++)
         {
@@ -70,7 +74,18 @@ public class CityBuilder {
 
             for (CityTile t: tileHandler.lookupIndexAll())
             {
-                sp.addState(new State<CityTilePosition>(new CityTilePosition(t, i), t.getWeight()));
+                if (t.getId().startsWith("BUILDING"))
+                {
+                    int iX = i % cityGrid.getWidth(), iY = i / cityGrid.getWidth();
+                    double dist = Math.pow(iX - mX, 2) + Math.pow(iY - mY, 2);
+                    double weight = Math.max(t.getWeight() * (1d - (dist / maxDist)), 0);
+
+                    sp.addState(new State<CityTilePosition>(new CityTilePosition(t, i), (int) weight));
+                }
+                else
+                {
+                    sp.addState(new State<CityTilePosition>(new CityTilePosition(t, i), t.getWeight()));
+                }
             }
 
             superPositionGrid.add(sp);
