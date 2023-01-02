@@ -7,8 +7,14 @@ import java.util.*;
 
 public class TileHandler {
 
-    HashMap<String, CityTile> tilesIndex = new HashMap<>(), tilesRotation = new HashMap<>();
-    ArrayList<CityTile> tilesList = new ArrayList<>();
+    HashSet<String> baseIds = new HashSet<>();
+
+    HashSet<CityTile> uniqueTiles = new HashSet<>();
+    ArrayList<CityTile> orderedUniqueTiles = new ArrayList<>();
+
+    HashMap<String, String> equivalentMap = new HashMap<>();
+    HashMap<String, CityTile> idLookup = new HashMap<>();
+
     int sides;
 
     public TileHandler(int s)
@@ -16,85 +22,56 @@ public class TileHandler {
         sides = s;
     }
 
-    public CityTile getNext(CityTile tile)
+    public CityTile lookupTile(String id)
     {
-        int index = tilesList.lastIndexOf(tile);
-        return tilesList.get((index + 1) % tilesList.size());
+        String eq = equivalentMap.get(id);
+        return idLookup.get(eq);
     }
 
-    public CityTile getPrevious(CityTile tile)
+    public CityTile lookupOrder(int index)
     {
-        int index = tilesList.indexOf(tile);
-        return tilesList.get(Math.floorMod(index - 1, tilesList.size()));
+        return orderedUniqueTiles.get(index);
     }
 
-    public CityTile lookupIndex(String id)
+    public HashSet<CityTile> getUniqueTiles()
     {
-        return tilesIndex.get(id);
-    }
-    public CityTile lookupRotation(String id)
-    {
-        return tilesRotation.get(id);
+        return uniqueTiles;
     }
 
-    public Set<Map.Entry<String, CityTile>> lookupIndexSet()
+    public Collection<CityTile> getOrderedUniqueTiles()
     {
-        return tilesIndex.entrySet();
+        return orderedUniqueTiles;
     }
 
-    public Collection<CityTile> lookupIndexAll()
-    {
-        return tilesIndex.values();
-    }
-    public Collection<CityTile> lookupRotationAll()
-    {
-        return tilesRotation.values();
+    public HashSet<String> getBaseIds() {
+        return baseIds;
     }
 
-    public void addAll(String id, int[] rotation, int weight)
+    public Set<Map.Entry<String, String>> getEquivalentSet() {
+        return equivalentMap.entrySet();
+    }
+
+    public void addTile(String id, CityTile tile)
     {
-        for (int i=0;i<rotation.length;i++)
+        baseIds.add(tile.getBaseId());
+
+        if (!uniqueTiles.contains(tile))
         {
-            add(id, i, rotation[i], weight);
+            uniqueTiles.add(tile);
+            orderedUniqueTiles.add(tile);
+
+            idLookup.put(id, tile);
         }
     }
 
-    public void add(String id, int index, int rot, int weight)
+    public void addEquivalent(String id, String equalTo)
     {
-        CityTile tile;
-        if (tilesRotation.containsKey(id + rot)) {
-            tile = tilesIndex.get(id + rot);
-        }
-        else
-        {
-            tile = new CityTile(id, rot, sides, weight);
-            tilesRotation.put(id + rot, tile);
-        }
-
-        tilesIndex.put(id + index, tile);
-
-        tilesList.add(tile);
-    }
-
-    public void addBoth(CityTile tile, int index, int rot)
-    {
-        addIndex(tile, index);
-        addRotation(tile, rot);
-
-        tilesList.add(tile);
-    }
-    public void addIndex(CityTile tile, int index)
-    {
-        tilesIndex.put(tile.getBaseId() + index, tile);
-    }
-    public void addRotation(CityTile tile, int rot)
-    {
-        tilesRotation.put(tile.getBaseId() + rot, tile);
+        equivalentMap.put(id, equalTo);
     }
 
     public void addValid(String id, int side, String validId)
     {
-        tilesIndex.get(id).addValid(validId, side);
+        idLookup.get(id).addValid(validId, side);
     }
 
     public void addAllValidFromGrid(CityGrid2D[] grids)

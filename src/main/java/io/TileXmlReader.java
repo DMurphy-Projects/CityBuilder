@@ -35,7 +35,6 @@ public class TileXmlReader {
         {
             Element tile = (Element) tileList.item(i);
             String tileBaseId = tile.getAttributes().getNamedItem("id").getNodeValue();
-            Integer weight = Integer.parseInt(tile.getAttributes().getNamedItem("weight").getNodeValue());
 
             NodeList subTileList = tile.getElementsByTagName("subTile");
             for (int j=0;j<subTileList.getLength();j++)
@@ -44,6 +43,9 @@ public class TileXmlReader {
 
                 String id = subTile.getAttribute("id");
                 int r = Integer.parseInt(id.split(tileBaseId)[1]);
+
+                Integer weight = Integer.parseInt(subTile.getAttributes().getNamedItem("weight").getNodeValue());
+
                 CityTile subTileOb = new CityTile(tileBaseId, r, tileHandler.getSides(), weight);
 
                 NodeList sideList = subTile.getElementsByTagName("side");
@@ -61,8 +63,8 @@ public class TileXmlReader {
                         subTileOb.addValid(validId, sideIndex);
                     }
                 }
-                //rotation is same as index in this case
-                tileHandler.addBoth(subTileOb, r, r);
+
+                tileHandler.addTile(subTileOb.getId(), subTileOb);
             }
 
             NodeList rotationList = tile.getElementsByTagName("rotation");
@@ -73,15 +75,8 @@ public class TileXmlReader {
                 String id = rotation.getAttribute("id");
                 String rotId = rotation.getTextContent();
 
-                if (tileHandler.lookupIndex(id) == null)
-                {
-                    int index = Integer.parseInt(id.split(tileBaseId)[1]);
-                    int r = Integer.parseInt(rotId.split(tileBaseId)[1]);
-
-                    //rotation is shared
-                    CityTile subTileOb = tileHandler.lookupIndex(rotId);
-                    tileHandler.addBoth(subTileOb, index, r);
-                }
+//                System.out.println(String.format("%s -> %s", id, rotId));
+                tileHandler.addEquivalent(id, rotId);
             }
         }
 

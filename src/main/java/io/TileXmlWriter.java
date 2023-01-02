@@ -15,6 +15,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Map;
 
 public class TileXmlWriter {
@@ -31,31 +32,19 @@ public class TileXmlWriter {
         meta.setAttribute("sides", tileHandler.getSides()+"");
         tiles.appendChild(meta);
 
-        //easy access of info
-        HashSet<String> idSet = new HashSet<>();
-        HashMap<String, String> subIdMap = new HashMap<>();
-        HashMap<String, String> rotationMap = new HashMap<>();
-
-        for (Map.Entry<String, CityTile> entry: tileHandler.lookupIndexSet())
-        {
-            idSet.add(entry.getValue().getBaseId());
-            rotationMap.put(entry.getKey(), entry.getValue().getId());
-        }
-        for (CityTile tile: tileHandler.lookupRotationAll())
-        {
-            subIdMap.put(tile.getId(), tile.getBaseId());
-        }
-
         //retrieval of xml nodes
         HashMap<String, Element> tileElementMap = new HashMap<>();
         HashMap<String, Element> rotationElementMap = new HashMap<>();
         HashMap<String, Element> subTileElementMap = new HashMap<>();
 
-        for (String id: idSet)
+        Iterator<String> idIt = tileHandler.getBaseIds().iterator();
+        while(idIt.hasNext())
         {
+            String id = idIt.next();
+
             Element tile = doc.createElement("tile");
             tile.setAttribute("id", id);
-            tile.setAttribute("weight", tileHandler.lookupIndex(id+"0").getWeight()+"");
+
             tiles.appendChild(tile);
             tileElementMap.put(id, tile);
 
@@ -68,16 +57,15 @@ public class TileXmlWriter {
             subTileElementMap.put(id, subtiles);
         }
 
-        for (Map.Entry<String, String> entry: subIdMap.entrySet())
+        Iterator<CityTile> tileIt = tileHandler.getUniqueTiles().iterator();
+        while(tileIt.hasNext())
         {
-            String id = entry.getKey();
-            String baseId = entry.getValue();
-            CityTile tile = tileHandler.lookupIndex(id);
-
-            Element subTiles = subTileElementMap.get(baseId);
+            CityTile tile = tileIt.next();
+            Element subTiles = subTileElementMap.get(tile.getBaseId());
 
             Element subTile = doc.createElement("subTile");
-            subTile.setAttribute("id", id);
+            subTile.setAttribute("id", tile.getId());
+            subTile.setAttribute("weight", tile.getWeight()+"");
             subTiles.appendChild(subTile);
 
             Element sides = doc.createElement("sides");
@@ -99,10 +87,10 @@ public class TileXmlWriter {
             }
         }
 
-        for (Map.Entry<String, String> entry: rotationMap.entrySet())
+        for (Map.Entry<String, String> entry: tileHandler.getEquivalentSet())
         {
             String r = entry.getKey();
-            CityTile tile = tileHandler.lookupIndex(r);
+            CityTile tile = tileHandler.lookupTile(r);
 
             Element rotation = doc.createElement("rotation");
             rotation.setAttribute("id", r);

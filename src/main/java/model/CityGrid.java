@@ -20,7 +20,7 @@ public class CityGrid {
     }
     public void setPosition(int pos, String id, int rot)
     {
-        grid[pos] = handler.lookupIndex(id + rot);
+        grid[pos] = handler.lookupTile(id + rot);
     }
 
     public CityTile getPosition(int pos)

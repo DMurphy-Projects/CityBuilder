@@ -115,12 +115,16 @@ public class CityVisual {
             }
         });
 
+        final int[] scrollPos = {0};
         panel.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 switch (e.getButton())
                 {
-                    case 1: panel.updateSelected(e);
+                    case 1:
+                        scrollPos[0] = 0;
+                        panel.updateSelected(e);
+                        break;
                     case 3: break;
                 }
 
@@ -153,11 +157,15 @@ public class CityVisual {
                 int x = panel.getSelectedX(), y = panel.getSelectedY();
                 if (e.getWheelRotation() > 0)
                 {
-                    cityGrid.setPosition(x, y, tileHandler.getNext(cityGrid.getPosition(x, y)));
+                    scrollPos[0] = (scrollPos[0] + 1) % tileHandler.getUniqueTiles().size();
+
+                    cityGrid.setPosition(x, y, tileHandler.lookupOrder(scrollPos[0]));
                 }
                 else
                 {
-                    cityGrid.setPosition(x, y, tileHandler.getPrevious(cityGrid.getPosition(x, y)));
+                    scrollPos[0] = Math.floorMod(scrollPos[0] - 1, tileHandler.getUniqueTiles().size());
+
+                    cityGrid.setPosition(x, y, tileHandler.lookupOrder(scrollPos[0]));
                 }
                 panel.repaint();
             }

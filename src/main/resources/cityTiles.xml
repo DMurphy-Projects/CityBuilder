@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <tiles>
   <meta sides="4"/>
-  <tile id="BLANK" weight="100">
+  <tile id="BLANK">
     <rotations>
       <rotation id="BLANK1">BLANK0</rotation>
       <rotation id="BLANK0">BLANK0</rotation>
@@ -9,11 +9,11 @@
       <rotation id="BLANK2">BLANK0</rotation>
     </rotations>
     <subTiles>
-      <subTile id="BLANK0">
+      <subTile id="BLANK0" weight="100">
         <sides>
           <side index="0">
-            <valid id="BLANK0"/>
             <valid id="TURN3"/>
+            <valid id="BLANK0"/>
             <valid id="TURN2"/>
             <valid id="JUNCTION2"/>
             <valid id="ROAD0"/>
@@ -47,7 +47,7 @@
       </subTile>
     </subTiles>
   </tile>
-  <tile id="INTERSECTION" weight="10">
+  <tile id="INTERSECTION">
     <rotations>
       <rotation id="INTERSECTION0">INTERSECTION0</rotation>
       <rotation id="INTERSECTION2">INTERSECTION0</rotation>
@@ -55,10 +55,9 @@
       <rotation id="INTERSECTION3">INTERSECTION0</rotation>
     </rotations>
     <subTiles>
-      <subTile id="INTERSECTION0">
+      <subTile id="INTERSECTION0" weight="10">
         <sides>
           <side index="0">
-            <valid id="INTERSECTION0"/>
             <valid id="TURN1"/>
             <valid id="TURN0"/>
             <valid id="JUNCTION0"/>
@@ -67,7 +66,6 @@
             <valid id="ROAD1"/>
           </side>
           <side index="1">
-            <valid id="INTERSECTION0"/>
             <valid id="TURN2"/>
             <valid id="TURN1"/>
             <valid id="JUNCTION0"/>
@@ -78,7 +76,6 @@
           <side index="2">
             <valid id="TURN3"/>
             <valid id="TURN2"/>
-            <valid id="INTERSECTION0"/>
             <valid id="JUNCTION1"/>
             <valid id="JUNCTION2"/>
             <valid id="JUNCTION3"/>
@@ -86,9 +83,8 @@
           </side>
           <side index="3">
             <valid id="TURN3"/>
-            <valid id="INTERSECTION0"/>
-            <valid id="TURN0"/>
             <valid id="JUNCTION0"/>
+            <valid id="TURN0"/>
             <valid id="JUNCTION2"/>
             <valid id="JUNCTION3"/>
             <valid id="ROAD0"/>
@@ -97,7 +93,7 @@
       </subTile>
     </subTiles>
   </tile>
-  <tile id="BUILDING" weight="200">
+  <tile id="BUILDING">
     <rotations>
       <rotation id="BUILDING0">BUILDING0</rotation>
       <rotation id="BUILDING1">BUILDING0</rotation>
@@ -105,19 +101,19 @@
       <rotation id="BUILDING3">BUILDING0</rotation>
     </rotations>
     <subTiles>
-      <subTile id="BUILDING0">
+      <subTile id="BUILDING0" weight="100">
         <sides>
           <side index="0">
-            <valid id="TURN3"/>
             <valid id="BLANK0"/>
+            <valid id="TURN3"/>
             <valid id="TURN2"/>
             <valid id="JUNCTION2"/>
             <valid id="ROAD0"/>
             <valid id="BUILDING0"/>
           </side>
           <side index="1">
-            <valid id="TURN3"/>
             <valid id="BLANK0"/>
+            <valid id="TURN3"/>
             <valid id="TURN0"/>
             <valid id="JUNCTION3"/>
             <valid id="ROAD1"/>
@@ -143,7 +139,7 @@
       </subTile>
     </subTiles>
   </tile>
-  <tile id="ROAD" weight="100">
+  <tile id="ROAD">
     <rotations>
       <rotation id="ROAD0">ROAD0</rotation>
       <rotation id="ROAD1">ROAD1</rotation>
@@ -151,19 +147,18 @@
       <rotation id="ROAD3">ROAD1</rotation>
     </rotations>
     <subTiles>
-      <subTile id="ROAD0">
+      <subTile id="ROAD0" weight="100">
         <sides>
           <side index="0">
-            <valid id="BLANK0"/>
             <valid id="TURN3"/>
+            <valid id="BLANK0"/>
             <valid id="TURN2"/>
             <valid id="JUNCTION2"/>
-            <valid id="ROAD0"/>
             <valid id="BUILDING0"/>
           </side>
           <side index="1">
-            <valid id="TURN2"/>
             <valid id="INTERSECTION0"/>
+            <valid id="TURN2"/>
             <valid id="TURN1"/>
             <valid id="JUNCTION0"/>
             <valid id="JUNCTION1"/>
@@ -173,23 +168,22 @@
           <side index="2">
             <valid id="BLANK0"/>
             <valid id="TURN1"/>
-            <valid id="TURN0"/>
             <valid id="JUNCTION0"/>
-            <valid id="ROAD0"/>
+            <valid id="TURN0"/>
             <valid id="BUILDING0"/>
           </side>
           <side index="3">
             <valid id="TURN3"/>
             <valid id="INTERSECTION0"/>
-            <valid id="TURN0"/>
             <valid id="JUNCTION0"/>
+            <valid id="TURN0"/>
             <valid id="JUNCTION2"/>
             <valid id="JUNCTION3"/>
             <valid id="ROAD0"/>
           </side>
         </sides>
       </subTile>
-      <subTile id="ROAD1">
+      <subTile id="ROAD1" weight="100">
         <sides>
           <side index="0">
             <valid id="INTERSECTION0"/>
@@ -205,13 +199,12 @@
             <valid id="BLANK0"/>
             <valid id="TURN0"/>
             <valid id="JUNCTION3"/>
-            <valid id="ROAD1"/>
             <valid id="BUILDING0"/>
           </side>
           <side index="2">
             <valid id="TURN3"/>
-            <valid id="TURN2"/>
             <valid id="INTERSECTION0"/>
+            <valid id="TURN2"/>
             <valid id="JUNCTION1"/>
             <valid id="JUNCTION2"/>
             <valid id="JUNCTION3"/>
@@ -222,14 +215,13 @@
             <valid id="TURN2"/>
             <valid id="TURN1"/>
             <valid id="JUNCTION1"/>
-            <valid id="ROAD1"/>
             <valid id="BUILDING0"/>
           </side>
         </sides>
       </subTile>
     </subTiles>
   </tile>
-  <tile id="TURN" weight="10">
+  <tile id="TURN">
     <rotations>
       <rotation id="TURN3">TURN3</rotation>
       <rotation id="TURN2">TURN2</rotation>
@@ -237,11 +229,84 @@
       <rotation id="TURN0">TURN0</rotation>
     </rotations>
     <subTiles>
-      <subTile id="TURN3">
+      <subTile id="TURN2" weight="10">
         <sides>
           <side index="0">
             <valid id="INTERSECTION0"/>
             <valid id="TURN1"/>
+            <valid id="TURN0"/>
+            <valid id="JUNCTION0"/>
+            <valid id="JUNCTION1"/>
+            <valid id="JUNCTION3"/>
+            <valid id="ROAD1"/>
+          </side>
+          <side index="1">
+            <valid id="BLANK0"/>
+            <valid id="TURN3"/>
+            <valid id="TURN0"/>
+            <valid id="JUNCTION3"/>
+            <valid id="ROAD1"/>
+            <valid id="BUILDING0"/>
+          </side>
+          <side index="2">
+            <valid id="BLANK0"/>
+            <valid id="TURN1"/>
+            <valid id="JUNCTION0"/>
+            <valid id="TURN0"/>
+            <valid id="ROAD0"/>
+            <valid id="BUILDING0"/>
+          </side>
+          <side index="3">
+            <valid id="TURN3"/>
+            <valid id="INTERSECTION0"/>
+            <valid id="JUNCTION0"/>
+            <valid id="JUNCTION2"/>
+            <valid id="JUNCTION3"/>
+            <valid id="ROAD0"/>
+          </side>
+        </sides>
+      </subTile>
+      <subTile id="TURN1" weight="10">
+        <sides>
+          <side index="0">
+            <valid id="TURN3"/>
+            <valid id="BLANK0"/>
+            <valid id="TURN2"/>
+            <valid id="JUNCTION2"/>
+            <valid id="ROAD0"/>
+            <valid id="BUILDING0"/>
+          </side>
+          <side index="1">
+            <valid id="BLANK0"/>
+            <valid id="TURN3"/>
+            <valid id="TURN0"/>
+            <valid id="JUNCTION3"/>
+            <valid id="ROAD1"/>
+            <valid id="BUILDING0"/>
+          </side>
+          <side index="2">
+            <valid id="TURN2"/>
+            <valid id="INTERSECTION0"/>
+            <valid id="JUNCTION1"/>
+            <valid id="JUNCTION2"/>
+            <valid id="JUNCTION3"/>
+            <valid id="ROAD1"/>
+          </side>
+          <side index="3">
+            <valid id="TURN3"/>
+            <valid id="INTERSECTION0"/>
+            <valid id="TURN0"/>
+            <valid id="JUNCTION0"/>
+            <valid id="JUNCTION2"/>
+            <valid id="JUNCTION3"/>
+            <valid id="ROAD0"/>
+          </side>
+        </sides>
+      </subTile>
+      <subTile id="TURN3" weight="10">
+        <sides>
+          <side index="0">
+            <valid id="INTERSECTION0"/>
             <valid id="TURN0"/>
             <valid id="JUNCTION0"/>
             <valid id="JUNCTION1"/>
@@ -275,45 +340,7 @@
           </side>
         </sides>
       </subTile>
-      <subTile id="TURN2">
-        <sides>
-          <side index="0">
-            <valid id="INTERSECTION0"/>
-            <valid id="TURN1"/>
-            <valid id="TURN0"/>
-            <valid id="JUNCTION0"/>
-            <valid id="JUNCTION1"/>
-            <valid id="JUNCTION3"/>
-            <valid id="ROAD1"/>
-          </side>
-          <side index="1">
-            <valid id="BLANK0"/>
-            <valid id="TURN3"/>
-            <valid id="TURN0"/>
-            <valid id="JUNCTION3"/>
-            <valid id="ROAD1"/>
-            <valid id="BUILDING0"/>
-          </side>
-          <side index="2">
-            <valid id="BLANK0"/>
-            <valid id="TURN1"/>
-            <valid id="TURN0"/>
-            <valid id="JUNCTION0"/>
-            <valid id="ROAD0"/>
-            <valid id="BUILDING0"/>
-          </side>
-          <side index="3">
-            <valid id="TURN3"/>
-            <valid id="INTERSECTION0"/>
-            <valid id="TURN0"/>
-            <valid id="JUNCTION0"/>
-            <valid id="JUNCTION2"/>
-            <valid id="JUNCTION3"/>
-            <valid id="ROAD0"/>
-          </side>
-        </sides>
-      </subTile>
-      <subTile id="TURN1">
+      <subTile id="TURN0" weight="10">
         <sides>
           <side index="0">
             <valid id="BLANK0"/>
@@ -324,46 +351,7 @@
             <valid id="BUILDING0"/>
           </side>
           <side index="1">
-            <valid id="BLANK0"/>
-            <valid id="TURN3"/>
-            <valid id="TURN0"/>
-            <valid id="JUNCTION3"/>
-            <valid id="ROAD1"/>
-            <valid id="BUILDING0"/>
-          </side>
-          <side index="2">
-            <valid id="TURN3"/>
-            <valid id="TURN2"/>
             <valid id="INTERSECTION0"/>
-            <valid id="JUNCTION1"/>
-            <valid id="JUNCTION2"/>
-            <valid id="JUNCTION3"/>
-            <valid id="ROAD1"/>
-          </side>
-          <side index="3">
-            <valid id="TURN3"/>
-            <valid id="INTERSECTION0"/>
-            <valid id="TURN0"/>
-            <valid id="JUNCTION0"/>
-            <valid id="JUNCTION2"/>
-            <valid id="JUNCTION3"/>
-            <valid id="ROAD0"/>
-          </side>
-        </sides>
-      </subTile>
-      <subTile id="TURN0">
-        <sides>
-          <side index="0">
-            <valid id="TURN3"/>
-            <valid id="BLANK0"/>
-            <valid id="TURN2"/>
-            <valid id="JUNCTION2"/>
-            <valid id="ROAD0"/>
-            <valid id="BUILDING0"/>
-          </side>
-          <side index="1">
-            <valid id="INTERSECTION0"/>
-            <valid id="TURN2"/>
             <valid id="TURN1"/>
             <valid id="JUNCTION0"/>
             <valid id="JUNCTION1"/>
@@ -372,8 +360,8 @@
           </side>
           <side index="2">
             <valid id="TURN3"/>
-            <valid id="TURN2"/>
             <valid id="INTERSECTION0"/>
+            <valid id="TURN2"/>
             <valid id="JUNCTION1"/>
             <valid id="JUNCTION2"/>
             <valid id="JUNCTION3"/>
@@ -391,7 +379,7 @@
       </subTile>
     </subTiles>
   </tile>
-  <tile id="JUNCTION" weight="10">
+  <tile id="JUNCTION">
     <rotations>
       <rotation id="JUNCTION0">JUNCTION0</rotation>
       <rotation id="JUNCTION1">JUNCTION1</rotation>
@@ -399,7 +387,7 @@
       <rotation id="JUNCTION3">JUNCTION3</rotation>
     </rotations>
     <subTiles>
-      <subTile id="JUNCTION0">
+      <subTile id="JUNCTION0" weight="10">
         <sides>
           <side index="0">
             <valid id="TURN3"/>
@@ -410,8 +398,8 @@
             <valid id="BUILDING0"/>
           </side>
           <side index="1">
-            <valid id="TURN2"/>
             <valid id="INTERSECTION0"/>
+            <valid id="TURN2"/>
             <valid id="TURN1"/>
             <valid id="JUNCTION0"/>
             <valid id="JUNCTION1"/>
@@ -423,22 +411,57 @@
             <valid id="INTERSECTION0"/>
             <valid id="TURN2"/>
             <valid id="JUNCTION1"/>
-            <valid id="JUNCTION2"/>
             <valid id="JUNCTION3"/>
             <valid id="ROAD1"/>
           </side>
           <side index="3">
             <valid id="TURN3"/>
             <valid id="INTERSECTION0"/>
-            <valid id="TURN0"/>
             <valid id="JUNCTION0"/>
+            <valid id="TURN0"/>
+            <valid id="JUNCTION3"/>
+            <valid id="ROAD0"/>
+          </side>
+        </sides>
+      </subTile>
+      <subTile id="JUNCTION2" weight="10">
+        <sides>
+          <side index="0">
+            <valid id="INTERSECTION0"/>
+            <valid id="TURN1"/>
+            <valid id="TURN0"/>
+            <valid id="JUNCTION1"/>
+            <valid id="JUNCTION3"/>
+            <valid id="ROAD1"/>
+          </side>
+          <side index="1">
+            <valid id="INTERSECTION0"/>
+            <valid id="TURN2"/>
+            <valid id="TURN1"/>
+            <valid id="JUNCTION1"/>
+            <valid id="JUNCTION2"/>
+            <valid id="ROAD0"/>
+          </side>
+          <side index="2">
+            <valid id="BLANK0"/>
+            <valid id="TURN1"/>
+            <valid id="JUNCTION0"/>
+            <valid id="TURN0"/>
+            <valid id="ROAD0"/>
+            <valid id="BUILDING0"/>
+          </side>
+          <side index="3">
+            <valid id="TURN3"/>
+            <valid id="INTERSECTION0"/>
+            <valid id="JUNCTION0"/>
+            <valid id="TURN0"/>
             <valid id="JUNCTION2"/>
             <valid id="JUNCTION3"/>
             <valid id="ROAD0"/>
           </side>
         </sides>
       </subTile>
-      <subTile id="JUNCTION1">
+      <subTile id="JUNCTION3" weight="10">
         <sides>
           <side index="0">
             <valid id="INTERSECTION0"/>
@@ -450,34 +473,32 @@
             <valid id="ROAD1"/>
           </side>
           <side index="1">
-            <valid id="TURN3"/>
-            <valid id="BLANK0"/>
-            <valid id="TURN0"/>
-            <valid id="JUNCTION3"/>
-            <valid id="ROAD1"/>
-            <valid id="BUILDING0"/>
+            <valid id="TURN2"/>
+            <valid id="INTERSECTION0"/>
+            <valid id="TURN1"/>
+            <valid id="JUNCTION0"/>
+            <valid id="JUNCTION2"/>
+            <valid id="ROAD0"/>
           </side>
           <side index="2">
             <valid id="TURN3"/>
-            <valid id="INTERSECTION0"/>
             <valid id="TURN2"/>
-            <valid id="JUNCTION1"/>
+            <valid id="INTERSECTION0"/>
             <valid id="JUNCTION2"/>
             <valid id="JUNCTION3"/>
             <valid id="ROAD1"/>
           </side>
           <side index="3">
-            <valid id="TURN3"/>
-            <valid id="INTERSECTION0"/>
-            <valid id="TURN0"/>
-            <valid id="JUNCTION0"/>
-            <valid id="JUNCTION2"/>
-            <valid id="JUNCTION3"/>
-            <valid id="ROAD0"/>
+            <valid id="BLANK0"/>
+            <valid id="TURN2"/>
+            <valid id="TURN1"/>
+            <valid id="JUNCTION1"/>
+            <valid id="ROAD1"/>
+            <valid id="BUILDING0"/>
           </side>
         </sides>
       </subTile>
-      <subTile id="JUNCTION2">
+      <subTile id="JUNCTION1" weight="10">
         <sides>
           <side index="0">
             <valid id="INTERSECTION0"/>
@@ -485,56 +506,15 @@
             <valid id="JUNCTION0"/>
             <valid id="TURN0"/>
             <valid id="JUNCTION1"/>
-            <valid id="JUNCTION3"/>
             <valid id="ROAD1"/>
           </side>
           <side index="1">
-            <valid id="INTERSECTION0"/>
-            <valid id="TURN2"/>
-            <valid id="TURN1"/>
-            <valid id="JUNCTION0"/>
-            <valid id="JUNCTION1"/>
-            <valid id="JUNCTION2"/>
-            <valid id="ROAD0"/>
-          </side>
-          <side index="2">
             <valid id="BLANK0"/>
-            <valid id="TURN1"/>
-            <valid id="JUNCTION0"/>
-            <valid id="TURN0"/>
-            <valid id="ROAD0"/>
-            <valid id="BUILDING0"/>
-          </side>
-          <side index="3">
             <valid id="TURN3"/>
-            <valid id="INTERSECTION0"/>
             <valid id="TURN0"/>
-            <valid id="JUNCTION0"/>
-            <valid id="JUNCTION2"/>
-            <valid id="JUNCTION3"/>
-            <valid id="ROAD0"/>
-          </side>
-        </sides>
-      </subTile>
-      <subTile id="JUNCTION3">
-        <sides>
-          <side index="0">
-            <valid id="INTERSECTION0"/>
-            <valid id="TURN1"/>
-            <valid id="TURN0"/>
-            <valid id="JUNCTION0"/>
-            <valid id="JUNCTION1"/>
             <valid id="JUNCTION3"/>
             <valid id="ROAD1"/>
-          </side>
-          <side index="1">
-            <valid id="TURN2"/>
-            <valid id="INTERSECTION0"/>
-            <valid id="TURN1"/>
-            <valid id="JUNCTION0"/>
-            <valid id="JUNCTION1"/>
-            <valid id="JUNCTION2"/>
-            <valid id="ROAD0"/>
+            <valid id="BUILDING0"/>
           </side>
           <side index="2">
             <valid id="TURN3"/>
@@ -546,12 +526,12 @@
             <valid id="ROAD1"/>
           </side>
           <side index="3">
-            <valid id="BLANK0"/>
-            <valid id="TURN2"/>
-            <valid id="TURN1"/>
-            <valid id="JUNCTION1"/>
-            <valid id="ROAD1"/>
-            <valid id="BUILDING0"/>
+            <valid id="TURN3"/>
+            <valid id="INTERSECTION0"/>
+            <valid id="TURN0"/>
+            <valid id="JUNCTION0"/>
+            <valid id="JUNCTION2"/>
+            <valid id="ROAD0"/>
           </side>
         </sides>
       </subTile>

@@ -51,9 +51,8 @@ public class CityBuilder {
                 {
                     if (surrounding[i] == null) continue;
 
-                    HashSet valid = tileHandler.lookupIndex(id).getValid(i);
-                    if (!valid.contains(surrounding[i].getId()))
-                    {
+                    HashSet valid = tileHandler.lookupTile(id).getValid(i);
+                    if (!valid.contains(surrounding[i].getId())) {
                         state.updateWeight(0);
                     }
                 }
@@ -72,7 +71,7 @@ public class CityBuilder {
             SuperPosition<CityTile, CityGrid> sp = new SuperPosition<>();
             sp.addConstraint(tileConstraints);
 
-            for (CityTile t: tileHandler.lookupIndexAll())
+            for (CityTile t: tileHandler.getOrderedUniqueTiles())
             {
                 if (t.getId().startsWith("BUILDING"))
                 {
@@ -121,12 +120,14 @@ public class CityBuilder {
         FragmentPanel panel = CityFragmentPanel.create(cityGrid);
         frame.add(panel);
 
+        final int[] scrollPos = {0};
         panel.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 switch (e.getButton())
                 {
                     case 1:
+                        scrollPos[0] = 0;
                         panel.updateSelected(e);
                         break;
                     case 3:
@@ -176,11 +177,15 @@ public class CityBuilder {
                 int x = panel.getSelectedX(), y = panel.getSelectedY();
                 if (e.getWheelRotation() > 0)
                 {
-                    cityGrid.setPosition(x, y, tileHandler.getNext(cityGrid.getPosition(x, y)));
+                    scrollPos[0] = (scrollPos[0] + 1) % tileHandler.getUniqueTiles().size();
+
+                    cityGrid.setPosition(x, y, tileHandler.lookupOrder(scrollPos[0]));
                 }
                 else
                 {
-                    cityGrid.setPosition(x, y, tileHandler.getPrevious(cityGrid.getPosition(x, y)));
+                    scrollPos[0] = Math.floorMod(scrollPos[0] - 1, tileHandler.getUniqueTiles().size());
+
+                    cityGrid.setPosition(x, y, tileHandler.lookupOrder(scrollPos[0]));
                 }
                 panel.repaint();
             }
@@ -194,12 +199,12 @@ public class CityBuilder {
         String inFolder = "C:\\Users\\Dean\\AppData\\Roaming\\.minecraft\\installations\\1.18.1\\schematics\\City Generator\\City Tiles\\";
         String outFolder = "C:\\Users\\Dean\\AppData\\Roaming\\.minecraft\\installations\\1.18.1\\schematics\\City Generator\\City Examples\\";
 
-        Collection<CityTile> tiles = tileHandler.lookupRotationAll();
+        Collection<CityTile> tiles = tileHandler.getOrderedUniqueTiles();
         HashMap<CityTile, SchematicArea> tileMap = new HashMap<>();
 
         for (CityTile t: tiles)
         {
-            tileMap.put(tileHandler.lookupRotation(t.getId()), createFromFile(String.format("%s%s.litematic", inFolder, t.getId())));
+            tileMap.put(tileHandler.lookupTile(t.getId()), createFromFile(String.format("%s%s.litematic", inFolder, t.getId())));
         }
 
         int sSize = 9, sHeight = 10;

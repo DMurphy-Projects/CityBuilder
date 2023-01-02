@@ -29,7 +29,7 @@ public class CityGrid2D extends CityGrid {
             if (grid[i] == null) continue;
 
             try {
-                CityTile rotated = handler.lookupIndex(grid[i].id + (grid[i].rotation + rot) % 4);
+                CityTile rotated = handler.lookupTile(grid[i].id + (grid[i].rotation + rot) % 4);
                 grid[i] = rotated;
             }
             catch (NullPointerException e)
