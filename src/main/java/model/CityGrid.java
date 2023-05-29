@@ -34,7 +34,7 @@ public class CityGrid {
         this.handler = handler;
     }
 
-    public int getLength()
+    public int getGridLength()
     {
         return grid.length;
     }

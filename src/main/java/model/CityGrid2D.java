@@ -36,8 +36,9 @@ public class CityGrid2D extends CityGrid {
             {
                 System.out.println(grid[i].id + (grid[i].rotation + rot) % 4);
             }
-        };
+        }
     }
+
 
     public CityGrid2D rotate90()
     {

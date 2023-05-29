@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<tiles>
+  <meta sides="6"/>
+  <tile id="ROAD">
+    <rotations>
+      <rotation id="ROAD0">ROAD0</rotation>
+      <rotation id="ROAD1">ROAD1</rotation>
+      <rotation id="ROAD2">ROAD0</rotation>
+      <rotation id="ROAD3">ROAD1</rotation>
+    </rotations>
+    <subTiles>
+      <subTile id="ROAD1" weight="100">
+        <sides>
+          <side index="0"/>
+          <side index="1"/>
+          <side index="2"/>
+          <side index="3"/>
+          <side index="4"/>
+          <side index="5"/>
+        </sides>
+      </subTile>
+      <subTile id="ROAD0" weight="100">
+        <sides>
+          <side index="0"/>
+          <side index="1"/>
+          <side index="2"/>
+          <side index="3"/>
+          <side index="4"/>
+          <side index="5"/>
+        </sides>
+      </subTile>
+    </subTiles>
+  </tile>
+</tiles>

@@ -1,10 +1,14 @@
-import cityExamples.*;
+import cityExamples.CityPieces;
+import cityExamples.TurnExample;
 import io.TileXmlReader;
 import model.CityGrid2D;
+import model.CityGrid3D;
+import model.CityTile;
 import org.xml.sax.SAXException;
 import tile.TileHandler;
 import view.Fragment;
 import view.FragmentPanel;
+import view.FragmentPanel3D;
 
 import javax.swing.*;
 import javax.xml.parsers.ParserConfigurationException;
@@ -15,17 +19,24 @@ import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.io.IOException;
 
-public class CityVisual {
+public class CityVisual3D {
 
     public static void main(String[] args) throws IOException, SAXException, ParserConfigurationException {
 
-        TileHandler tileHandler = TileXmlReader.readFromFile("src/main/resources/cityTiles.xml");
-
-        CityGrid2D[] grids = TurnExample.createGrids(tileHandler);
+        TileHandler tileHandler = TileXmlReader.readFromFile("src/main/resources/cityTiles3D.xml");
 
         JFrame frame = new JFrame("");
-        CityGrid2D cityGrid = grids[(4 * 1) + 3];
-        FragmentPanel panel = new FragmentPanel(cityGrid, cityGrid.getWidth(), cityGrid.getHeight());
+
+        int w = 2, h = 2, l = 2;
+
+        CityTile[] tiles = new CityTile[w * h * l];
+        tiles[0] = tileHandler.lookupTile("ROAD0");
+
+        CityGrid3D base = new CityGrid3D(tileHandler, tiles, w, h, l);
+        CityGrid3D cityGrid = base.rotate90();
+
+        FragmentPanel panel = new FragmentPanel3D(cityGrid, cityGrid.getWidth(), cityGrid.getLength());
+
         panel.setPreferredSize(new Dimension(500, 500));
         frame.add(panel);
 
@@ -155,17 +166,20 @@ public class CityVisual {
             @Override
             public void mouseWheelMoved(MouseWheelEvent e) {
                 int x = panel.getSelectedX(), y = panel.getSelectedY();
+                //TODO
+                int z = 0;
+
                 if (e.getWheelRotation() > 0)
                 {
                     scrollPos[0] = (scrollPos[0] + 1) % tileHandler.getUniqueTiles().size();
 
-                    cityGrid.setPosition(x, y, tileHandler.lookupOrder(scrollPos[0]));
+                    cityGrid.setPosition(x, y, z, tileHandler.lookupOrder(scrollPos[0]));
                 }
                 else
                 {
                     scrollPos[0] = Math.floorMod(scrollPos[0] - 1, tileHandler.getUniqueTiles().size());
 
-                    cityGrid.setPosition(x, y, tileHandler.lookupOrder(scrollPos[0]));
+                    cityGrid.setPosition(x, y, z, tileHandler.lookupOrder(scrollPos[0]));
                 }
                 panel.repaint();
             }

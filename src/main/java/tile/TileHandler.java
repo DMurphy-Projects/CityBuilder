@@ -83,7 +83,7 @@ public class TileHandler {
     }
     public void addValidFromGrid(CityGrid2D grid)
     {
-        for (int i=0;i<grid.getLength();i++)
+        for (int i = 0; i<grid.getGridLength(); i++)
         {
             CityTile current = grid.getPosition(i);
             if (current == null) continue;

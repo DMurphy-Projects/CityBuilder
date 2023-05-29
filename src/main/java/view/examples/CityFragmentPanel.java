@@ -1,20 +1,39 @@
 package view.examples;
 
 import cityExamples.CityPieces;
-import io.TileXmlWriter;
 import model.CityGrid;
 import model.CityGrid2D;
+import model.CityGrid3D;
 import view.Fragment;
 import view.FragmentPanel;
+import view.FragmentPanel3D;
+
 import java.awt.*;
 
 public class CityFragmentPanel {
 
     public static FragmentPanel create(CityGrid2D cityGrid)
     {
-        FragmentPanel panel = new FragmentPanel(cityGrid);
+        FragmentPanel panel = new FragmentPanel(cityGrid, cityGrid.getWidth(), cityGrid.getHeight());
         panel.setPreferredSize(new Dimension(500, 500));
 
+        addFragments(panel);
+
+        return panel;
+    }
+
+    public static FragmentPanel create(CityGrid3D cityGrid)
+    {
+        FragmentPanel panel = new FragmentPanel3D(cityGrid, cityGrid.getWidth(), cityGrid.getLength());
+        panel.setPreferredSize(new Dimension(500, 500));
+
+        addFragments(panel);
+
+        return panel;
+    }
+
+    private static void addFragments(FragmentPanel panel)
+    {
         panel.addFragment(CityPieces.ROAD + CityPieces.ROAD_ROT[0], new Fragment() {
             @Override
             public void paint(Graphics g, int x, int y, int w, int h) {
@@ -114,7 +133,5 @@ public class CityFragmentPanel {
                 g.fillRect(x + (w / 4), y + (h / 4), w / 2, h / 2);
             }
         });
-
-        return panel;
     }
 }

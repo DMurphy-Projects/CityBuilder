@@ -1,7 +1,8 @@
 package view;
 
+import model.CityGrid;
 import model.CityGrid2D;
-import model.CityTile;
+import model.CityGrid3D;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,15 +18,15 @@ public class FragmentPanel extends JPanel {
         }
     };
 
-    CityGrid2D grid;
-    int gridW, gridH, cellW, cellH, selectedX, selectedY;
+    CityGrid grid;
+    protected int gridW, gridH, cellW, cellH, selectedX, selectedY;
 
-    public FragmentPanel(CityGrid2D g)
+    public FragmentPanel(CityGrid g, int w, int h)
     {
         grid = g;
 
-        gridW = g.getWidth();
-        gridH = g.getHeight();
+        gridW = w;
+        gridH = h;
 
         selectedX = 0;
         selectedY = 0;
@@ -50,9 +51,9 @@ public class FragmentPanel extends JPanel {
         g.setColor(Color.white);
         g.fillRect(0, 0, getWidth(), getHeight());
 
-        for (int i=0;i<grid.getLength();i++)
+        for (int i = 0; i<grid.getGridLength(); i++)
         {
-            int x = i % gridW, y = i / gridW;
+            int x = i / gridW, y = i % gridW;
 
             if (grid.getPosition(i) == null)
             {
