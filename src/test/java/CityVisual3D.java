@@ -165,9 +165,10 @@ public class CityVisual3D {
         panel.addMouseWheelListener(new MouseWheelListener() {
             @Override
             public void mouseWheelMoved(MouseWheelEvent e) {
-                int x = panel.getSelectedX(), y = panel.getSelectedY();
+                int x = panel.getSelectedX(), z = panel.getSelectedY();
+
                 //TODO
-                int z = 0;
+                int y = 0;
 
                 if (e.getWheelRotation() > 0)
                 {
