@@ -33,6 +33,7 @@ public class CityBuilder3D {
 
         int w = 5, h = 5, l = 5;
         CityGrid3D cityGrid = new CityGrid3D(tileHandler, w, h, l);
+        CityGrid3D cityGrid = new CityGrid3D(tileHandler, w, l, h);
 
         //constraints
         final Constraint<CityTilePosition, CityGrid3D> tileConstraints = new Constraint<CityTilePosition, CityGrid3D>(cityGrid) {
