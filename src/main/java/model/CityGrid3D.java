@@ -51,12 +51,12 @@ public class CityGrid3D extends CityGrid {
     public CityTile[] getSurrounding(int x, int y, int z)
     {
         return new CityTile[]{
-                getPositionChecked(x, y-1, z),
-                getPositionChecked(x+1, y, z),
-                getPositionChecked(x, y+1, z),
-                getPositionChecked(x-1, y, z),
                 getPositionChecked(x, y, z-1),
+                getPositionChecked(x+1, y, z),
                 getPositionChecked(x, y, z+1),
+                getPositionChecked(x-1, y, z),
+                getPositionChecked(x, y-1, z),
+                getPositionChecked(x, y+1, z),
         };
     }
 
@@ -95,7 +95,7 @@ public class CityGrid3D extends CityGrid {
 
         rotatePieces(rotated, 1);
 
-        return new CityGrid3D(handler, rotated, length, height, width);
+        return new CityGrid3D(handler, rotated, length, width, height);
     }
 
     //reverse column -> reverse row (order irrelevant)
@@ -114,7 +114,7 @@ public class CityGrid3D extends CityGrid {
 
         rotatePieces(rotated, 2);
 
-        return new CityGrid3D(handler, rotated, length, height, width);
+        return new CityGrid3D(handler, rotated, width, length, height);
     }
 
     //transpose -> reverse column
@@ -133,7 +133,7 @@ public class CityGrid3D extends CityGrid {
 
         rotatePieces(rotated, 3);
 
-        return new CityGrid3D(handler, rotated, length, height, width);
+        return new CityGrid3D(handler, rotated, length, width, height);
     }
 
     public int getWidth() {

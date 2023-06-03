@@ -6,10 +6,21 @@ import java.awt.*;
 
 public class FragmentPanel3D extends FragmentPanel {
 
-    int selectedHeight = 0;
+    int selectedHeight = 0, height;
 
-    public FragmentPanel3D(CityGrid g, int w, int h) {
-        super(g, w, h);
+    public FragmentPanel3D(CityGrid g, int w, int l, int h) {
+        super(g, w, l);
+
+        height = h;
+    }
+
+    public void setSelectedHeight(int h)
+    {
+        selectedHeight = h;
+    }
+
+    public int getSelectedHeight() {
+        return selectedHeight;
     }
 
     @Override
@@ -19,7 +30,7 @@ public class FragmentPanel3D extends FragmentPanel {
 
         for (int i = 0; i < grid.getGridLength(); i++)
         {
-            int x = i % gridW, z = i / (gridW * gridH), y = (i / gridW) % gridH;
+            int x = i % gridW, z = i / (gridW * height), y = (i / gridW) % height;
             if (y != selectedHeight) continue;
 
             if (grid.getPosition(i) == null)
