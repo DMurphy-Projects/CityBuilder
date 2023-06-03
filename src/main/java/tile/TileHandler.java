@@ -1,6 +1,7 @@
 package tile;
 
 import model.CityGrid2D;
+import model.CityGrid3D;
 import model.CityTile;
 
 import java.util.*;
@@ -82,6 +83,22 @@ public class TileHandler {
         }
     }
     public void addValidFromGrid(CityGrid2D grid)
+    {
+        for (int i = 0; i<grid.getGridLength(); i++)
+        {
+            CityTile current = grid.getPosition(i);
+            if (current == null) continue;
+
+            CityTile[] surrounding = grid.getSurrounding(i);
+            for (int ii=0;ii<surrounding.length;ii++)
+            {
+                if (surrounding[ii] == null) continue;
+                current.addValid(surrounding[ii].getId(), ii);
+            }
+        }
+    }
+
+    public void addValidFromGrid(CityGrid3D grid)
     {
         for (int i = 0; i<grid.getGridLength(); i++)
         {

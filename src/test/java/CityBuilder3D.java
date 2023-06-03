@@ -10,16 +10,13 @@ import io.TileXmlWriter;
 import model.*;
 import org.xml.sax.SAXException;
 import tile.TileHandler;
-import view.FragmentPanel;
+import view.FragmentPanel3D;
 import view.examples.CityFragmentPanel;
 
 import javax.swing.*;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseWheelEvent;
-import java.awt.event.MouseWheelListener;
+import java.awt.event.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
@@ -31,9 +28,9 @@ public class CityBuilder3D {
         String fileName = "src/main/resources/cityTiles3D.xml";
         TileHandler tileHandler = TileXmlReader.readFromFile(fileName);
 
-        int w = 5, h = 5, l = 5;
-        CityGrid3D cityGrid = new CityGrid3D(tileHandler, w, h, l);
+        int w = 25, h = 2, l = 25;
         CityGrid3D cityGrid = new CityGrid3D(tileHandler, w, l, h);
+        cityGrid.setPosition(0, "BLANK", 0);
 
         //constraints
         final Constraint<CityTilePosition, CityGrid3D> tileConstraints = new Constraint<CityTilePosition, CityGrid3D>(cityGrid) {
@@ -68,19 +65,18 @@ public class CityBuilder3D {
             SuperPosition<CityTile, CityGrid> sp = new SuperPosition<>();
             sp.addConstraint(tileConstraints);
 
-            for (CityTile t: tileHandler.getOrderedUniqueTiles())
-            {
-                if (t.getId().startsWith("BUILDING"))
-                {
-                    int iX = i % cityGrid.getWidth(), iY = i / cityGrid.getWidth();
-                    double dist = Math.pow(iX - mX, 2) + Math.pow(iY - mY, 2);
-                    double weight = Math.max(t.getWeight() * (1d - (dist / maxDist)), 0);
+            CityTile _t = cityGrid.getPosition(i);
+            if (_t == null) {
+                for (CityTile t : tileHandler.getOrderedUniqueTiles()) {
+                    if (t.getId().startsWith("BUILDING")) {
+                        int iX = i % cityGrid.getWidth(), iY = i / cityGrid.getWidth();
+                        double dist = Math.pow(iX - mX, 2) + Math.pow(iY - mY, 2);
+                        double weight = Math.max(t.getWeight() * (1d - (dist / maxDist)), 0);
 
-                    sp.addState(new State<CityTilePosition>(new CityTilePosition(t, i), (int) weight));
-                }
-                else
-                {
-                    sp.addState(new State<CityTilePosition>(new CityTilePosition(t, i), t.getWeight()));
+                        sp.addState(new State<CityTilePosition>(new CityTilePosition(t, i), (int) weight));
+                    } else {
+                        sp.addState(new State<CityTilePosition>(new CityTilePosition(t, i), t.getWeight()));
+                    }
                 }
             }
 
@@ -114,42 +110,92 @@ public class CityBuilder3D {
         }
 
         JFrame frame = new JFrame("");
-        FragmentPanel panel = CityFragmentPanel.create(cityGrid);
+        FragmentPanel3D panel = CityFragmentPanel.create(cityGrid);
         frame.add(panel);
 
-        final int[] scrollPos = {0};
+        int SCROLL_POSITION = 0;
+        final int[] listenerVariables = {0};
+        frame.addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+                int x = panel.getSelectedX(), z = panel.getSelectedY();
+                int y = panel.getSelectedHeight();
+
+                switch(e.getKeyCode())
+                {
+                    case KeyEvent.VK_LEFT:
+                        //cycle tile forward
+                        listenerVariables[SCROLL_POSITION] = (listenerVariables[0] + 1) % tileHandler.getUniqueTiles().size();
+
+                        cityGrid.setPosition(x, y, z, tileHandler.lookupOrder(listenerVariables[SCROLL_POSITION]));
+                        break;
+                    case KeyEvent.VK_RIGHT:
+                        //cycle tile back
+                        listenerVariables[SCROLL_POSITION] = Math.floorMod(listenerVariables[0] - 1, tileHandler.getUniqueTiles().size());
+
+                        cityGrid.setPosition(x, y, z, tileHandler.lookupOrder(listenerVariables[SCROLL_POSITION]));
+                        break;
+                    case KeyEvent.VK_UP:
+                        panel.setSelectedHeight(Math.min(h-1, panel.getSelectedHeight() + 1));
+                        System.out.println("Layer " + panel.getSelectedHeight());
+                        break;
+                    case KeyEvent.VK_DOWN:
+                        panel.setSelectedHeight(Math.max(0, panel.getSelectedHeight() - 1));
+                        System.out.println("Layer " + panel.getSelectedHeight());
+                        break;
+                    case KeyEvent.VK_ENTER:
+                        //update validity
+                        System.out.println("Updating Validity");
+                        tileHandler.addValidFromGrid(cityGrid);
+                        tileHandler.addValidFromGrid(cityGrid.rotate90());
+                        tileHandler.addValidFromGrid(cityGrid.rotate180());
+                        tileHandler.addValidFromGrid(cityGrid.rotate270());
+                        try {
+                            TileXmlWriter.writeToFile(fileName, tileHandler);
+                            System.out.println("File Saved");
+                        } catch (ParserConfigurationException e1) {
+                            e1.printStackTrace();
+                        } catch (IOException e1) {
+                            e1.printStackTrace();
+                        } catch (TransformerException e1) {
+                            e1.printStackTrace();
+                        }
+                        break;
+                }
+                panel.repaint();
+            }
+        });
+
         panel.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                switch (e.getButton())
-                {
-                    case 1:
-                        scrollPos[0] = 0;
-                        panel.updateSelected(e);
-                        break;
-                    case 3:
-//                        tileHandler.addValidFromGrid(cityGrid);
-//                        tileHandler.addValidFromGrid(cityGrid.rotate90());
-//                        tileHandler.addValidFromGrid(cityGrid.rotate180());
-//                        tileHandler.addValidFromGrid(cityGrid.rotate270());
-//                        try {
-//                            TileXmlWriter.writeToFile(fileName, tileHandler);
-//                            System.out.println("File Saved");
-//                        } catch (ParserConfigurationException e1) {
-//                            e1.printStackTrace();
-//                        } catch (IOException e1) {
-//                            e1.printStackTrace();
-//                        } catch (TransformerException e1) {
-//                            e1.printStackTrace();
-//                        }
-                        break;
-                }
 
             }
 
             @Override
             public void mousePressed(MouseEvent e) {
-
+                switch (e.getButton())
+                {
+                    case 1:
+                        listenerVariables[SCROLL_POSITION] = 0;
+                        panel.updateSelected(e);
+                        CityTile selectedTile = cityGrid.getPosition(panel.getSelectedX(), panel.getSelectedHeight(), panel.getSelectedY());
+                        if (selectedTile != null) {
+                            System.out.println(selectedTile.getId());
+                            System.out.println(Arrays.toString(selectedTile.getValid()));
+                        }
+                        break;
+                }
             }
 
             @Override
@@ -171,24 +217,7 @@ public class CityBuilder3D {
         panel.addMouseWheelListener(new MouseWheelListener() {
             @Override
             public void mouseWheelMoved(MouseWheelEvent e) {
-                int x = panel.getSelectedX(), z = panel.getSelectedY();
 
-                //TODO
-                int y = 0;
-
-                if (e.getWheelRotation() > 0)
-                {
-                    scrollPos[0] = (scrollPos[0] + 1) % tileHandler.getUniqueTiles().size();
-
-                    cityGrid.setPosition(x, y, z, tileHandler.lookupOrder(scrollPos[0]));
-                }
-                else
-                {
-                    scrollPos[0] = Math.floorMod(scrollPos[0] - 1, tileHandler.getUniqueTiles().size());
-
-                    cityGrid.setPosition(x, y, z, tileHandler.lookupOrder(scrollPos[0]));
-                }
-                panel.repaint();
             }
         });
 

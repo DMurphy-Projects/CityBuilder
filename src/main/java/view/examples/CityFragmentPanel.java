@@ -22,9 +22,9 @@ public class CityFragmentPanel {
         return panel;
     }
 
-    public static FragmentPanel create(CityGrid3D cityGrid)
+    public static FragmentPanel3D create(CityGrid3D cityGrid)
     {
-        FragmentPanel panel = new FragmentPanel3D(cityGrid, cityGrid.getWidth(), cityGrid.getLength());
+        FragmentPanel3D panel = new FragmentPanel3D(cityGrid, cityGrid.getWidth(), cityGrid.getLength(), cityGrid.getHeight());
         panel.setPreferredSize(new Dimension(500, 500));
 
         addFragments(panel);
@@ -121,6 +121,14 @@ public class CityFragmentPanel {
         });
 
         panel.addFragment(CityPieces.BLANK + CityPieces.BLANK_ROT[0], new Fragment() {
+            @Override
+            public void paint(Graphics g, int x, int y, int w, int h) {
+                g.setColor(Color.LIGHT_GRAY);
+                g.fillRect(x, y, w, h);
+            }
+        });
+
+        panel.addFragment("AIR" + CityPieces.BLANK_ROT[0], new Fragment() {
             @Override
             public void paint(Graphics g, int x, int y, int w, int h) {
 
